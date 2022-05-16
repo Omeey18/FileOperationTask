@@ -3,47 +3,49 @@
 #include <string.h>
 
 
-
-FILE *enterData(FILE *fp)
+//It will enter user data to new file
+void enterData(FILE *fp)
 {
-    char data[1000] = "";
+    //buffer to store user's data
+    char data[100] = "";
     printf("\nEnter Data here:\n ");
-    while (strcmp(data, "END"))
+    //writing data until 'END'
+    while (1)
     {
         /* code */
         scanf("%s", data);
         if (strcmp(data, "END"))
         {
             fprintf(fp, "%s ", data);
+        }else{
+            break;
         }
     }
-    // fgets(data, 1000, stdin);
-    return fp;
 }
 
+//It will check file is their or not 
 FILE *fileCheck(void)
 {
+
     char check[20];
     FILE *fp;
+    //asking file name 
     printf("Enter File name you want to open or create: ");
     scanf("%s", check);
-    fflush(stdin);
 
+    //if file is already their then it will return file pointer
     if (fp = fopen(check, "r"))
     {
         printf("file exists\n");
         return fp;
     }
+    //it will create new file and ask data
     else
     {
-
         if (fp = fopen(check, "w+"))
         {
             printf("\nNew File created..\n");
-            // printf("\nEnter Data here:\n ");
-            // scanf("%[^\n]s",data);
-            // gets();
-            fp = enterData(fp);
+            enterData(fp);
             rewind(fp);
             return fp;
         }
@@ -68,11 +70,16 @@ int main()
         fprintf(stderr, "[!] Failed to open the file!\n");
         return 1;
     }
+
+//counter for creating new file
 int i=1;
+
 //outer loop 
 do{
+    //array of file pointer
     FILE *files[100];
     char filename[20];
+    //it will create filename according to counter
     sprintf(filename,"%d.txt",i);
     files[i] = fopen(filename,"w");
 
@@ -95,14 +102,17 @@ do{
                 ch = getc(fp1);
             }
         }
+        //writing char in new file
         fprintf(files[i],"%c",ch);
-        printf("%c", ch);
+        // printf("%c", ch);
     } while (ch != EOF);
+    //new file closed
     fclose(files[i]);
     i++;
 }while (ch != EOF);
 
     printf("\n");
+    //main file closed
     fclose(fp1);
 
     return 0;
