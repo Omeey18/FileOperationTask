@@ -77,11 +77,11 @@ int i=1;
 //outer loop 
 do{
     //array of file pointer
-    FILE *files[100];
+    FILE *files;
     char filename[20];
     //it will create filename according to counter
     sprintf(filename,"%d.txt",i);
-    files[i] = fopen(filename,"w");
+    files = fopen(filename,"w");
 
     //inner loop
     // reading chars from file
@@ -103,11 +103,11 @@ do{
             }
         }
         //writing char in new file
-        fprintf(files[i],"%c",ch);
+        fprintf(files,"%c",ch);
         // printf("%c", ch);
     } while (ch != EOF);
     //new file closed
-    fclose(files[i]);
+    fclose(files);
     i++;
 }while (ch != EOF);
 
