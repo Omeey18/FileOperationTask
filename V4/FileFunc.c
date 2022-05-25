@@ -27,19 +27,17 @@
 void enterData(FILE *fp)
 {
     //buffer to store user's data
-    char data[100] = "";
+    char data[1000] = "";
     printf("\nEnter Data here:\n ");
     //writing data until 'END'
     while (1)
     {
         /* code */
-        scanf(" %s", data);
-        if(data=="\n"){
-            fprintf(fp,"\n");
-        }
-        else if (strcmp(data, "END"))
+        scanf(" %[^\n]%*c", data);
+        if (strcmp(data, "END"))
         {
-            fprintf(fp, "%s ", data);
+            fprintf(fp, "%s\n", data);
+
         }
         else{
             break;
