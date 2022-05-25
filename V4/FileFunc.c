@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "header.h"
+#include <dirent.h>
+#include <errno.h>
 
 /***************************************
 * MACROS
@@ -14,13 +16,13 @@
 * GLOBAL
 ****************************************/
 
-
+/***************************************
+* INCLUDES
+****************************************/
 
 /***************************************
 * FUNCTION BODY
 ****************************************/
-
-
 //It will enter user data to new file
 void enterData(FILE *fp)
 {
@@ -45,16 +47,17 @@ void enterData(FILE *fp)
 FILE *fileCheck(void)
 {
 
-    char check[50],filename[20];
+    char filename[20];
     FILE *fp;
-    check[50]="INPUT/";
+    char path[50]="INPUT/";
     //asking file name 
     printf("Enter File name you want to open or create: ");
     scanf("%s", filename);
-    strcat(check,filename);
-    printf("file: %s\n",check);
+    strcat(path,filename);
+    // printf("file: %s\n",path);
+
     //if file is already their then it will return file pointer
-    if (fp = fopen(check, "r"))
+    if (fp = fopen(path, "r"))
     {
         printf("file exists\n");
         return fp;
@@ -62,7 +65,7 @@ FILE *fileCheck(void)
     //it will create new file and ask data
     else
     {
-        if (fp = fopen(check, "w+"))
+        if (fp = fopen(path, "w+"))
         {
             printf("\nNew File created..\n");
             enterData(fp);
@@ -76,3 +79,43 @@ FILE *fileCheck(void)
     }
     return NULL;
 }
+
+//it will check directory is their or not 
+void check_dir(char dirname){
+ 
+    DIR* dir = opendir(dirname);
+    if (dir) {
+        /* Directory exists. */
+        printf("Directory is exists\n");
+        closedir(dir);
+    } else if (ENOENT == errno) {
+        /* Directory does not exist. */
+        printf("calling create dir fun\n");
+        create_dir(dirname);
+    } else {
+        /* opendir() failed for some other reason. */
+        printf("-----Failed to open %d directory-----\n",dirname);
+    }
+
+}
+
+//It will create new folder called OUTPUT
+void create_dir(const char* dirname){
+    // int dir;
+    // // char* dirname = DIRNAME;
+    // dir = mkdir(dirname,0777);
+    // // check if directory is created or not
+    // if (!dir)
+    //     printf("Directory created\n");
+    // else {
+    //     printf("Unable to create directory\n");
+    //     exit(1);
+
+    // }
+    #ifdef __linux__
+       mkdir(dirname, 777); 
+    #else
+       _mkdir(dirname);
+   #endif
+}
+
