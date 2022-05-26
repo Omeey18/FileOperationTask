@@ -36,6 +36,7 @@ void enterData(FILE *fp)
     //buffer to store user's data
     char *data = malloc(sizeof(char)*1000);
     line();
+    printf("-----[NOTE]: write END in new line to complete your file-----\n");
     printf("Enter Data here:\n ");
     line();
     //writing data until 'END'

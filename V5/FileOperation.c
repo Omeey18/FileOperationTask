@@ -42,6 +42,11 @@ int main()
     line();
     printf("Enter File name you want to open or create: ");
     scanf("%s",filename);
+
+    //it will remove .txt if it is in filename or ignore if it is not there 
+    char * token = strtok(filename, ".");
+    printf("TOKEN: %s\n",token);
+    strcpy(filename,token);
     sprintf(filenameWithExatension,"%s.txt",filename);
     line();
     // getting file
