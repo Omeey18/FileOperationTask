@@ -35,7 +35,9 @@ void enterData(FILE *fp)
 {
     //buffer to store user's data
     char *data = malloc(sizeof(char)*1000);
-    printf("\nEnter Data here:\n ");
+    line();
+    printf("Enter Data here:\n ");
+    line();
     //writing data until 'END'
     while (1)
     {
@@ -74,10 +76,12 @@ FILE *fileCheck(char *filename)
     if (fp = fopen(path, "r"))
     {
         printf("file already exists\n");
+        line();
         printf("Do you want to create new or not {Y/N}: ");
         char check;
         fflush(stdout);
         scanf(" %c", &check);
+        line();
         if(check=='Y' ||check=='y'){
             if (remove(path) == 0) {
                 printf("The file is deleted successfully.");
@@ -132,7 +136,8 @@ void create_dir(char *dirname){
  * 
  */
 void logo(){
-    printf(
+    printf("\n\n"
+"---------------------------------------------------------------------------------\n"    
 "     ___       _              ___           _       _    _                   \n"
 "    (  _`\\  _ (_ )           (  _`\\        (_ )  _ ( )_ ( )_                 \n"
 "    | (_(_)(_) | |    __     | (_(_) _ _    | | (_)| ,_)| ,_)   __   _ __    \n"
@@ -141,6 +146,15 @@ void logo(){
 "    (_)    (_)(___)`\\____)   `\\____)| ,__/'(___)(_)`\\__)`\\__)`\\____)(_)      \n"
 "                                    | |                                      \n"
 "                                    (_)                                      \n"
+"---------------------------------------------------------------------------------"
 "\n\n\n");
+
+}
+/**
+ * @brief print one line
+ * 
+ */
+void line(){
+    printf("---------------------------------------------------------------------------------\n");
 
 }

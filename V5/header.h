@@ -1,6 +1,7 @@
 #ifndef HEADER_H
 #define HEADER_H
 /*function declaration.*/
+void line();
 void logo();
 void enterData(FILE *fp);
 FILE *fileCheck(char *filename);
