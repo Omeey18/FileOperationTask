@@ -8,17 +8,6 @@
 #include <dirent.h>
 #include <errno.h>
 
-/***************************************
-* MACROS
-****************************************/
-
-/***************************************
-* GLOBAL
-****************************************/
-
-/***************************************
-* INCLUDES
-****************************************/
 
 /***************************************
 * FUNCTION BODY
@@ -27,7 +16,7 @@
 void enterData(FILE *fp)
 {
     //buffer to store user's data
-    char data[1000] = "";
+    char *data = malloc(sizeof(char)*1000);
     printf("\nEnter Data here:\n ");
     //writing data until 'END'
     while (1)
@@ -43,6 +32,7 @@ void enterData(FILE *fp)
             break;
         }
     }
+    free(data);
 }
 
 
@@ -100,25 +90,6 @@ FILE *fileCheck(char *filename)
         }
     }
     return NULL;
-}
-
-//it will check directory is their or not 
-void check_dir(char dirname){
- 
-    DIR* dir = opendir(dirname);
-    if (dir) {
-        /* Directory exists. */
-        printf("Directory is exists\n");
-        closedir(dir);
-    } else if (ENOENT == errno) {
-        /* Directory does not exist. */
-        printf("calling create dir fun\n");
-        create_dir(dirname);
-    } else {
-        /* opendir() failed for some other reason. */
-        printf("-----Failed to open %d directory-----\n",dirname);
-    }
-
 }
 
 //It will create new folder called OUTPUT

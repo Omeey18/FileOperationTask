@@ -1,8 +1,14 @@
+/***************************************
+* INCLUDES
+****************************************/
 #include <stdio.h>
 #include<string.h>
 #include "header.h"
 
 
+/***************************************
+* MAIN FUNCTION
+****************************************/
 int main()
 {
     char ch;
@@ -27,9 +33,8 @@ char dirname[] = "OUTPUT";
 create_dir(dirname);
 char path[20];
 strcpy(path,filename);
-// printf("PAth: %s\n",path);
 sprintf(dirname,"%s/%s",dirname,path);
-// printf("Dirname: %s",dirname);
+// Creating one more directory under OUTPUT dir
 create_dir(dirname);
 
 //outer loop 
@@ -39,7 +44,6 @@ do{
     char newfilename[20];
     //it will create filename according to counter
     sprintf(newfilename,"%s/%d.txt",dirname,i);
-    // strcat(newfilename,dirname);
     files = fopen(newfilename,"w");
 
     //inner loop
