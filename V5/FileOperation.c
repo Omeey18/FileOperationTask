@@ -38,7 +38,7 @@ int main()
     // to store the execution time of code
     double time_spent = 0.0;
     // print logo
-    logo();
+    // logo();
     line();
     setBlueColor();
     printf("Enter File name you want to open or create: ");

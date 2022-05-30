@@ -71,10 +71,13 @@ FILE *fileCheck(char *filename)
 {
     FILE *fp;
     char path[50]="INPUT/";
+    char out[20]="OUTPUT/";
     //asking file name 
     // printf("filename : %s\n",filename);   
     strcat(path,filename);
-    // printf("file: %s\n",path);
+    char * token = strtok(filename, ".");
+    strcat(out,token);
+    // printf("out: %s\n",out);
 
     //if file is already their then it will return file pointer
     if (fp = fopen(path, "r"))
@@ -88,7 +91,25 @@ FILE *fileCheck(char *filename)
         fflush(stdout);
         scanf(" %c", &check);
         line();
-        if(check=='Y' ||check=='y'){
+        if(check=='Y' || check=='y'){
+            //deleting directory
+            DIR* dir = opendir(out);
+            struct dirent* entity;
+            char fol_file[50];
+            sprintf(fol_file,"%s/",out);
+            // printf("fol_file: %s\n",fol_file);
+            entity = readdir(dir);
+            while(entity != NULL){
+                // printf("%s\n",entity->d_name);
+                char temp[50];
+                strcpy(temp,fol_file);
+                strcat(temp,entity->d_name);
+                // printf("temp: %s\n",temp);
+                remove(temp);
+                entity = readdir(dir);
+            }
+            rmdir(out);
+            closedir(dir);
             if (remove(path) == 0) {
                 setBlueColor();
                 printf("The file is deleted successfully.");
