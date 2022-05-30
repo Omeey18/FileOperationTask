@@ -5,5 +5,5 @@ $(CC) = gcc
 
 final:
 		$(CC) FileOperation.c FileFunc.c -o final
-Clean:
+clean:
 		rm  *.o final

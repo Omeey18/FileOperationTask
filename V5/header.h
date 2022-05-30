@@ -5,8 +5,9 @@ void line();
 void logo();
 void setBlueColor();
 void setDefaultColor();
+void setRedColor();
 void enterData(FILE *fp);
-FILE *fileCheck(char *filename);
+FILE *fileCheck(char* filename);
 void create_dir(char *dirname);
 void check_dir(char dirname);
 

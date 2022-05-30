@@ -42,7 +42,7 @@ int main()
     line();
     setBlueColor();
     printf("Enter File name you want to open or create: ");
-    scanf("%s",filename);
+    scanf("%19s",filename);
 
     //it will remove .txt if it is in filename or ignore if it is not there 
     char * token = strtok(filename, ".");
@@ -51,7 +51,7 @@ int main()
     sprintf(filenameWithExatension,"%s.txt",filename);
     line();
     // getting file
-    FILE *fp1 = fileCheck(&filenameWithExatension);
+    FILE *fp1 = fileCheck(filenameWithExatension);
     // check file is open or not
     if (!fp1)
     {
