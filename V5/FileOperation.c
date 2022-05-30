@@ -40,12 +40,13 @@ int main()
     // print logo
     logo();
     line();
+    setBlueColor();
     printf("Enter File name you want to open or create: ");
     scanf("%s",filename);
 
     //it will remove .txt if it is in filename or ignore if it is not there 
     char * token = strtok(filename, ".");
-    printf("TOKEN: %s\n",token);
+    // printf("TOKEN: %s\n",token);
     strcpy(filename,token);
     sprintf(filenameWithExatension,"%s.txt",filename);
     line();
@@ -116,7 +117,8 @@ do{
     remove(blankFile);
     printf("\n");
     line();
-    printf("successfully file splited\n");
+    printf("\033[1;32m");//switching color to green
+    printf(">>>>>>>>>>>SUCCESSFULLY FILE SPLITED<<<<<<<<<<<\n");
     line();
     //taken time calculated start
     clock_t end = clock();
@@ -126,7 +128,9 @@ do{
     time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
     printf("\n");
     line();
+    printf("\033[1;32m");//switching color to green
     printf("Total taken time is %f seconds\n", time_spent);
+    printf("\033[0m");//switchign color to default
     line();
     //main file closed
     fclose(fp1);

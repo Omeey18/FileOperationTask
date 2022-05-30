@@ -36,6 +36,7 @@ void enterData(FILE *fp)
     //buffer to store user's data
     char *data = malloc(sizeof(char)*1000);
     line();
+    setBlueColor();
     printf("-----[NOTE]: write END in new line to complete your file-----\n");
     printf("Enter Data here:\n ");
     line();
@@ -76,15 +77,18 @@ FILE *fileCheck(char *filename)
     //if file is already their then it will return file pointer
     if (fp = fopen(path, "r"))
     {
+        setBlueColor();
         printf("file already exists\n");
         line();
-        printf("Do you want to create new or not {Y/N}: ");
+        setBlueColor();
+        printf("Do you want to add new data or not {Y/N}: ");
         char check;
         fflush(stdout);
         scanf(" %c", &check);
         line();
         if(check=='Y' ||check=='y'){
             if (remove(path) == 0) {
+                setBlueColor();
                 printf("The file is deleted successfully.");
                 fclose(fp);
                  if (fp = fopen(path, "w+"))
@@ -108,6 +112,7 @@ FILE *fileCheck(char *filename)
     {
         if (fp = fopen(path, "w+"))
         {
+            setBlueColor();
             printf("\nNew File created..\n");
             enterData(fp);
             rewind(fp);
@@ -137,6 +142,7 @@ void create_dir(char *dirname){
  * 
  */
 void logo(){
+    printf("\033[1;31m");//switchign color to red
     printf("\n\n"
 "---------------------------------------------------------------------------------\n"    
 "     ___       _              ___           _       _    _                   \n"
@@ -149,13 +155,28 @@ void logo(){
 "                                    (_)                                      \n"
 "---------------------------------------------------------------------------------"
 "\n\n\n");
-
+printf("\033[0m");//switchign color to default
 }
 /**
  * @brief print one line
  * 
  */
 void line(){
+    printf("\033[1;33m");//switchign color to yellow
     printf("---------------------------------------------------------------------------------\n");
-
+    printf("\033[0m");//switchign color to default
+}
+/**
+ * @brief Set the Blue Color object
+ * 
+ */
+void setBlueColor(){
+    printf("\033[1;34m");//switchign color to blue
+}
+/**
+ * @brief Set the Default Color object
+ * 
+ */
+void setDefaultColor(){
+    printf("\033[0m");//switchign color to default
 }

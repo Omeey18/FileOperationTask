@@ -3,6 +3,8 @@
 /*function declaration.*/
 void line();
 void logo();
+void setBlueColor();
+void setDefaultColor();
 void enterData(FILE *fp);
 FILE *fileCheck(char *filename);
 void create_dir(char *dirname);
