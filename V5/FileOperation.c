@@ -2,7 +2,7 @@
  * @file FileOperation.c
  * @author Om Patel (Om.Patel@einfochips.com)
  * @brief This will spilt one txt file to number of txt file in respective OUTPUT directory
- * @version 0.4
+ * @version 0.5
  * @date 2022-05-26
  * 
  * @copyright Copyright (c) 2022
@@ -38,7 +38,7 @@ int main()
     // to store the execution time of code
     double time_spent = 0.0;
     // print logo
-    // logo();
+    logo();
     line();
     setBlueColor();
     printf("Enter File name you want to open or create: ");

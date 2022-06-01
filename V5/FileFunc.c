@@ -2,7 +2,7 @@
  * @file FileFunc.c
  * @author Om Patel (Om.Patel@einfochips.com)
  * @brief This file has all functions which are used in FileOperation.c 
- * @version 0.4
+ * @version 0.5
  * @date 2022-05-26
  * 
  * @copyright Copyright (c) 2022
@@ -22,6 +22,7 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <unistd.h>
 
 
 /***************************************
@@ -71,14 +72,38 @@ FILE *fileCheck(char *filename)
 {
     FILE *fp;
     char path[50]="INPUT/";
-    char out[20]="OUTPUT/";
+    char out[20]="OUTPUT/";//path of output dir
     //asking file name 
     // printf("filename : %s\n",filename);   
-    strcat(path,filename);
-    char * token = strtok(filename, ".");
-    strcat(out,token);
+    strcat(path,filename);//path=INPUT/filename.txt
+    char * token = strtok(filename, ".");//token=filename {.txt removed}
+    strcat(out,token);//out=OUTPUT/filename
     // printf("out: %s\n",out);
 
+    //check dir is there or not
+    DIR* dir = opendir(out);
+    if (dir) {
+        /* Directory exists. */
+        //deleting directory
+            struct dirent* entity;
+            char fol_file[50];
+            sprintf(fol_file,"%s/",out);//fil_file=OUTPUT/filename/
+            // printf("fol_file: %s\n",fol_file);
+            entity = readdir(dir);
+            while(entity != NULL){
+                // printf("%s\n",entity->d_name);
+                char temp[50];
+                strcpy(temp,fol_file);//temp=OUTPUT/filename/
+                strcat(temp,entity->d_name);//temp=OUTPUT/filename/somthing.txt
+                // printf("temp: %s\n",temp);
+                remove(temp);//remove file {OUTPUT/filename/somthing.txt}
+                entity = readdir(dir);//read new file of that dir
+            }
+            rmdir(out);//remove empty directory
+            closedir(dir);//close dir
+    } else if (ENOENT == errno) {
+        /* Directory does not exist. */
+    } 
     //if file is already their then it will return file pointer
     if (fp = fopen(path, "r"))
     {
@@ -92,24 +117,7 @@ FILE *fileCheck(char *filename)
         scanf(" %c", &check);
         line();
         if(check=='Y' || check=='y'){
-            //deleting directory
-            DIR* dir = opendir(out);
-            struct dirent* entity;
-            char fol_file[50];
-            sprintf(fol_file,"%s/",out);
-            // printf("fol_file: %s\n",fol_file);
-            entity = readdir(dir);
-            while(entity != NULL){
-                // printf("%s\n",entity->d_name);
-                char temp[50];
-                strcpy(temp,fol_file);
-                strcat(temp,entity->d_name);
-                // printf("temp: %s\n",temp);
-                remove(temp);
-                entity = readdir(dir);
-            }
-            rmdir(out);
-            closedir(dir);
+             
             if (remove(path) == 0) {
                 setBlueColor();
                 printf("The file is deleted successfully.");
